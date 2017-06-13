@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL, SpringModelInspection -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.1.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- 配置SecurityManager、自定义Realm、定义加密算法、自定义二级缓存 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myRealm"/>
+        <property name="rememberMeManager" ref="rememberMeManager"/>
+    </bean>
+
+    <!-- 配置自定义第三方缓存EhCache -->
+    <bean id="shiroCache" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml"/>
+    </bean>
+
+    <!-- 自定义的realm -->
+    <bean id="myRealm" class="com.jz.xd.service.shiro.MyRealm">
+        <!-- 添加自定义检验规则 -->
+        <property name="credentialsMatcher" ref="passwordMatcher"/>
+    </bean>
+
+    <!-- remenberMe配置 -->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <!-- 默认记住7天（单位：秒） -->
+        <property name="maxAge" value="604800"/>
+    </bean>
+    <!-- rememberMe管理器 -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>
+    </bean>
+
+    <!-- 自定义加密算法 -->
+    <bean id="passwordMatcher" class="com.jz.xd.service.shiro.CustomCredentialsMatcher"/>
+
+    <!-- 过滤URL，filter。这个id名称必须和web.xml中声明的filter一致 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+
+        <!--登录失败之后指向的url-->
+        <property name="loginUrl" value="/index/toLogin"/>
+        <!--无权限指向的页面-->
+        <!--<property name="unauthorizedUrl" value="/login/toLogin"/>-->
+        <property name="filterChainDefinitions">
+            <!-- 哪些jsp,action等其他资源可以放行，哪些jsp,action不能放行。配置时按先后顺序进行url过滤 -->
+            <value>
+                <!--权限规则-->
+                <!--anon:例子/admins/**=anon 没有参数，表示可以匿名使用。-->
+                <!--authc:例如/admins/user/**=authc表示需要认证(登录)才能使用，没有参数-->
+                <!--roles：例子/admins/user/**=roles[admin],参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，当有多个参数时，例如admins/user/**=roles["admin,guest"],每个参数通过才算通过，相当于hasAllRoles()方法。-->
+                <!--perms：例子/admins/user/**=perms[user:add:*],参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，例如/admins/user/**=perms["user:add:*,user:modify:*"]，当有多个参数时必须每个参数都通过才通过，想当于isPermitedAll()方法。-->
+                <!--rest：例子/admins/user/**=rest[user],根据请求的方法，相当于/admins/user/**=perms[user:method] ,其中method为post，get，delete等。-->
+                <!--port：例子/admins/user/**=port[8081],当请求的url的端口不是8081是跳转到schemal://serverName:8081?queryString,其中schmal是协议http或https等，serverName是你访问的host,8081是url配置里port的端口，queryString是你访问的url里的？后面的参数。-->
+                <!--authcBasic：例如/admins/user/**=authcBasic没有参数表示httpBasic认证-->
+                <!--ssl:例子/admins/user/**=ssl没有参数，表示安全的url请求，协议为https-->
+                <!--user:例如/admins/user/**=user没有参数表示必须存在用户，当登入操作时不做检查-->
+
+                <!--静态资源和登录页不拦截-->
+                /index.jsp =anon
+                /html/**=anon
+                /new/**=anon
+                /resources/** =anon
+
+                <!--对每个Controller做拦截-->
+                /index/**=anon
+                <!--/login/**=authc-->
+
+                /login/toInformation=user
+                /login/toNewMyCourse=user
+                /login/toAddress=user
+                /login/toAddAddress=user
+                /login/addEditAddressAjax=user
+                /login/toEditAddress=user
+                /login/toDeleteAddress=user
+                /login/toUploadByMessage=user
+                /login/getCode=user
+                /login/validateCode=user
+                /login/validateInfo=user
+                /login/toUploadHead=user
+                /login/updateInfo=user
+                /login/uploadHead=user
+                /login/uploadRecommendHead=user
+                /login/toNewCoupon=user
+                /login/toMyPoint=user
+                /login/myPointAjax=user
+                /login/exchangePointAjax=user
+                /login/toNewMyOrder=user
+                /login/cancelOrder=user
+
+                /login/toShopCar=authc
+                /login/toBuy=authc
+                /login/deleteItem=authc
+                /login/toCheckOrder=authc
+                /login/toPay=authc
+                /login/toLogout=authc
+                /login/toSign=authc
+
+                /root/toUploadVideo=authc,perms[/root/toUploadVideo]
+                /root/toCourseVideo=authc,perms[/root/toUploadVideo]
+                /root/toEditKind=authc,perms[/root/toUploadVideo]
+                /root/toFeedback=authc,perms[/root/toUploadVideo]
+
+            </value>
+        </property>
+    </bean>
+
+
+    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- 生成代理，通过代理进行控制 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+
+    <!-- 安全管理器 -->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+</beans>

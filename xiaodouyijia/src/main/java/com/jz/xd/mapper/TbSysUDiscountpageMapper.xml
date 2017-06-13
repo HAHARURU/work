@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.TbSysUDiscountpageMapper">
+  <resultMap id="BaseResultMap" type="com.jz.xd.model.TbSysUDiscountpage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="dp_id" jdbcType="INTEGER" property="dpId" />
+    <result column="discountpage_num" jdbcType="INTEGER" property="discountpageNum" />
+    <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+    <result column="demo" jdbcType="VARCHAR" property="demo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, u_id, dp_id, discountpage_num, syscreated, active, demo
+  </sql>
+  <select id="selectByExample" parameterType="com.jz.xd.model.TbSysUDiscountpageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_sys_u_discountpage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_sys_u_discountpage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_sys_u_discountpage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jz.xd.model.TbSysUDiscountpageExample">
+    delete from tb_sys_u_discountpage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jz.xd.model.TbSysUDiscountpage">
+    insert into tb_sys_u_discountpage (id, u_id, dp_id, 
+      discountpage_num, syscreated, active, 
+      demo)
+    values (#{id,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{dpId,jdbcType=INTEGER}, 
+      #{discountpageNum,jdbcType=INTEGER}, #{syscreated,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}, 
+      #{demo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jz.xd.model.TbSysUDiscountpage">
+    insert into tb_sys_u_discountpage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="dpId != null">
+        dp_id,
+      </if>
+      <if test="discountpageNum != null">
+        discountpage_num,
+      </if>
+      <if test="syscreated != null">
+        syscreated,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="demo != null">
+        demo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="dpId != null">
+        #{dpId,jdbcType=INTEGER},
+      </if>
+      <if test="discountpageNum != null">
+        #{discountpageNum,jdbcType=INTEGER},
+      </if>
+      <if test="syscreated != null">
+        #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        #{demo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jz.xd.model.TbSysUDiscountpageExample" resultType="java.lang.Integer">
+    select count(*) from tb_sys_u_discountpage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_sys_u_discountpage
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.uId != null">
+        u_id = #{record.uId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dpId != null">
+        dp_id = #{record.dpId,jdbcType=INTEGER},
+      </if>
+      <if test="record.discountpageNum != null">
+        discountpage_num = #{record.discountpageNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.syscreated != null">
+        syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.active != null">
+        active = #{record.active,jdbcType=INTEGER},
+      </if>
+      <if test="record.demo != null">
+        demo = #{record.demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_sys_u_discountpage
+    set id = #{record.id,jdbcType=INTEGER},
+      u_id = #{record.uId,jdbcType=INTEGER},
+      dp_id = #{record.dpId,jdbcType=INTEGER},
+      discountpage_num = #{record.discountpageNum,jdbcType=INTEGER},
+      syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      active = #{record.active,jdbcType=INTEGER},
+      demo = #{record.demo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jz.xd.model.TbSysUDiscountpage">
+    update tb_sys_u_discountpage
+    <set>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="dpId != null">
+        dp_id = #{dpId,jdbcType=INTEGER},
+      </if>
+      <if test="discountpageNum != null">
+        discountpage_num = #{discountpageNum,jdbcType=INTEGER},
+      </if>
+      <if test="syscreated != null">
+        syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        demo = #{demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jz.xd.model.TbSysUDiscountpage">
+    update tb_sys_u_discountpage
+    set u_id = #{uId,jdbcType=INTEGER},
+      dp_id = #{dpId,jdbcType=INTEGER},
+      discountpage_num = #{discountpageNum,jdbcType=INTEGER},
+      syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=INTEGER},
+      demo = #{demo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

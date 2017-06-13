@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.TbRUBeanDiscountpageLogMapper">
+  <resultMap id="BaseResultMap" type="com.jz.xd.model.TbRUBeanDiscountpageLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bdcr_id" jdbcType="INTEGER" property="bdcrId" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="bean_val" jdbcType="INTEGER" property="beanVal" />
+    <result column="discountpage_val" jdbcType="INTEGER" property="discountpageVal" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="r_time" jdbcType="TIMESTAMP" property="rTime" />
+    <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+    <result column="demo" jdbcType="VARCHAR" property="demo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, bdcr_id, u_id, bean_val, discountpage_val, money, r_time, syscreated, active, 
+    demo
+  </sql>
+  <select id="selectByExample" parameterType="com.jz.xd.model.TbRUBeanDiscountpageLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_r_u_bean_discountpage_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_r_u_bean_discountpage_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_r_u_bean_discountpage_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jz.xd.model.TbRUBeanDiscountpageLogExample">
+    delete from tb_r_u_bean_discountpage_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jz.xd.model.TbRUBeanDiscountpageLog">
+    insert into tb_r_u_bean_discountpage_log (id, bdcr_id, u_id, 
+      bean_val, discountpage_val, money, 
+      r_time, syscreated, active, 
+      demo)
+    values (#{id,jdbcType=INTEGER}, #{bdcrId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, 
+      #{beanVal,jdbcType=INTEGER}, #{discountpageVal,jdbcType=INTEGER}, #{money,jdbcType=INTEGER}, 
+      #{rTime,jdbcType=TIMESTAMP}, #{syscreated,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}, 
+      #{demo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jz.xd.model.TbRUBeanDiscountpageLog">
+    insert into tb_r_u_bean_discountpage_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bdcrId != null">
+        bdcr_id,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="beanVal != null">
+        bean_val,
+      </if>
+      <if test="discountpageVal != null">
+        discountpage_val,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="rTime != null">
+        r_time,
+      </if>
+      <if test="syscreated != null">
+        syscreated,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="demo != null">
+        demo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bdcrId != null">
+        #{bdcrId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="beanVal != null">
+        #{beanVal,jdbcType=INTEGER},
+      </if>
+      <if test="discountpageVal != null">
+        #{discountpageVal,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=INTEGER},
+      </if>
+      <if test="rTime != null">
+        #{rTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="syscreated != null">
+        #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        #{demo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jz.xd.model.TbRUBeanDiscountpageLogExample" resultType="java.lang.Integer">
+    select count(*) from tb_r_u_bean_discountpage_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_r_u_bean_discountpage_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bdcrId != null">
+        bdcr_id = #{record.bdcrId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uId != null">
+        u_id = #{record.uId,jdbcType=INTEGER},
+      </if>
+      <if test="record.beanVal != null">
+        bean_val = #{record.beanVal,jdbcType=INTEGER},
+      </if>
+      <if test="record.discountpageVal != null">
+        discountpage_val = #{record.discountpageVal,jdbcType=INTEGER},
+      </if>
+      <if test="record.money != null">
+        money = #{record.money,jdbcType=INTEGER},
+      </if>
+      <if test="record.rTime != null">
+        r_time = #{record.rTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.syscreated != null">
+        syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.active != null">
+        active = #{record.active,jdbcType=INTEGER},
+      </if>
+      <if test="record.demo != null">
+        demo = #{record.demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_r_u_bean_discountpage_log
+    set id = #{record.id,jdbcType=INTEGER},
+      bdcr_id = #{record.bdcrId,jdbcType=INTEGER},
+      u_id = #{record.uId,jdbcType=INTEGER},
+      bean_val = #{record.beanVal,jdbcType=INTEGER},
+      discountpage_val = #{record.discountpageVal,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=INTEGER},
+      r_time = #{record.rTime,jdbcType=TIMESTAMP},
+      syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      active = #{record.active,jdbcType=INTEGER},
+      demo = #{record.demo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jz.xd.model.TbRUBeanDiscountpageLog">
+    update tb_r_u_bean_discountpage_log
+    <set>
+      <if test="bdcrId != null">
+        bdcr_id = #{bdcrId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="beanVal != null">
+        bean_val = #{beanVal,jdbcType=INTEGER},
+      </if>
+      <if test="discountpageVal != null">
+        discountpage_val = #{discountpageVal,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=INTEGER},
+      </if>
+      <if test="rTime != null">
+        r_time = #{rTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="syscreated != null">
+        syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        demo = #{demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jz.xd.model.TbRUBeanDiscountpageLog">
+    update tb_r_u_bean_discountpage_log
+    set bdcr_id = #{bdcrId,jdbcType=INTEGER},
+      u_id = #{uId,jdbcType=INTEGER},
+      bean_val = #{beanVal,jdbcType=INTEGER},
+      discountpage_val = #{discountpageVal,jdbcType=INTEGER},
+      money = #{money,jdbcType=INTEGER},
+      r_time = #{rTime,jdbcType=TIMESTAMP},
+      syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=INTEGER},
+      demo = #{demo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.FeedbackMapper">
+  <resultMap id="BaseResultMap" type="com.jz.xd.model.Feedback">
+    <id column="sid" jdbcType="INTEGER" property="sid" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="suggestion" jdbcType="VARCHAR" property="suggestion" />
+    <result column="contactWay" jdbcType="VARCHAR" property="contactway" />
+    <result column="uploadTime" jdbcType="TIMESTAMP" property="uploadtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    sid, uid, suggestion, contactWay, uploadTime
+  </sql>
+  <select id="selectByExample" parameterType="com.jz.xd.model.FeedbackExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from feedback
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from feedback
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from feedback
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jz.xd.model.FeedbackExample">
+    delete from feedback
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jz.xd.model.Feedback">
+    insert into feedback (sid, uid, suggestion, 
+      contactWay, uploadTime)
+    values (#{sid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{suggestion,jdbcType=VARCHAR}, 
+      #{contactway,jdbcType=VARCHAR}, #{uploadtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jz.xd.model.Feedback">
+    insert into feedback
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="suggestion != null">
+        suggestion,
+      </if>
+      <if test="contactway != null">
+        contactWay,
+      </if>
+      <if test="uploadtime != null">
+        uploadTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="suggestion != null">
+        #{suggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="contactway != null">
+        #{contactway,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadtime != null">
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jz.xd.model.FeedbackExample" resultType="java.lang.Integer">
+    select count(*) from feedback
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update feedback
+    <set>
+      <if test="record.sid != null">
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.suggestion != null">
+        suggestion = #{record.suggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactway != null">
+        contactWay = #{record.contactway,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploadtime != null">
+        uploadTime = #{record.uploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update feedback
+    set sid = #{record.sid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      suggestion = #{record.suggestion,jdbcType=VARCHAR},
+      contactWay = #{record.contactway,jdbcType=VARCHAR},
+      uploadTime = #{record.uploadtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jz.xd.model.Feedback">
+    update feedback
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="suggestion != null">
+        suggestion = #{suggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="contactway != null">
+        contactWay = #{contactway,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadtime != null">
+        uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jz.xd.model.Feedback">
+    update feedback
+    set uid = #{uid,jdbcType=INTEGER},
+      suggestion = #{suggestion,jdbcType=VARCHAR},
+      contactWay = #{contactway,jdbcType=VARCHAR},
+      uploadTime = #{uploadtime,jdbcType=TIMESTAMP}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

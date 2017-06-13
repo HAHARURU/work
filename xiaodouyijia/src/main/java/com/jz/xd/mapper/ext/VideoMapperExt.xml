@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.ext.VideoMapperExt">
+    <resultMap id="VideoCustom" type="com.jz.xd.model.TbRVideo">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="v_id" jdbcType="INTEGER" property="vId" />
+        <result column="v_name" jdbcType="VARCHAR" property="vName" />
+        <result column="v_tital" jdbcType="VARCHAR" property="vTital" />
+        <result column="v_year" jdbcType="INTEGER" property="vYear" />
+        <result column="v_month" jdbcType="INTEGER" property="vMonth" />
+        <result column="v_day" jdbcType="INTEGER" property="vDay" />
+        <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated" />
+        <result column="active" jdbcType="INTEGER" property="active" />
+        <result column="demo" jdbcType="VARCHAR" property="demo" />
+        <result column="v_img" jdbcType="VARCHAR" property="vImg" />
+        <result column="step_img" jdbcType="VARCHAR" property="stepImg" />
+        <result column="duration" jdbcType="INTEGER" property="duration" />
+        <result column="play_count" jdbcType="INTEGER" property="playCount" />
+    </resultMap>
+    <select id="getVideos" parameterType="java.lang.Integer" resultMap="VideoCustom">
+        select trv.*
+        from tb_sys_product tsp, tb_r_product_video trpv, tb_r_video trv
+        WHERE tsp.p_id = trpv.p_id AND trpv.v_id = trv.v_id AND trv.active = 1 AND tsp.active = 1 AND trpv.active = 1
+        <if test="pid != null">
+            AND trpv.p_id = #{pid}
+        </if>
+        ORDER BY trv.syscreated
+        <if test="number!=null">
+            LIMIT #{number},#{size}
+        </if>
+        ;
+    </select>
+
+    <select id="getVideoDetail" parameterType="java.lang.Integer" resultMap="VideoCustom">
+        select *
+        from tb_r_video trv
+        WHERE trv.v_id=#{vid} AND trv.active = 1;
+    </select>
+</mapper>

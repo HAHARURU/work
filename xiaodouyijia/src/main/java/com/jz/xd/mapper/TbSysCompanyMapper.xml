@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.TbSysCompanyMapper">
+  <resultMap id="BaseResultMap" type="com.jz.xd.model.TbSysCompany">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="c_id" jdbcType="INTEGER" property="cId" />
+    <result column="c_name" jdbcType="VARCHAR" property="cName" />
+    <result column="c_hot_phone" jdbcType="VARCHAR" property="cHotPhone" />
+    <result column="c_phone" jdbcType="VARCHAR" property="cPhone" />
+    <result column="c_address" jdbcType="VARCHAR" property="cAddress" />
+    <result column="c_dis" jdbcType="VARCHAR" property="cDis" />
+    <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+    <result column="demo" jdbcType="VARCHAR" property="demo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, c_id, c_name, c_hot_phone, c_phone, c_address, c_dis, syscreated, active, demo
+  </sql>
+  <select id="selectByExample" parameterType="com.jz.xd.model.TbSysCompanyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_sys_company
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_sys_company
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_sys_company
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jz.xd.model.TbSysCompanyExample">
+    delete from tb_sys_company
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jz.xd.model.TbSysCompany">
+    insert into tb_sys_company (id, c_id, c_name, 
+      c_hot_phone, c_phone, c_address, 
+      c_dis, syscreated, active, 
+      demo)
+    values (#{id,jdbcType=INTEGER}, #{cId,jdbcType=INTEGER}, #{cName,jdbcType=VARCHAR}, 
+      #{cHotPhone,jdbcType=VARCHAR}, #{cPhone,jdbcType=VARCHAR}, #{cAddress,jdbcType=VARCHAR}, 
+      #{cDis,jdbcType=VARCHAR}, #{syscreated,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}, 
+      #{demo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jz.xd.model.TbSysCompany">
+    insert into tb_sys_company
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cId != null">
+        c_id,
+      </if>
+      <if test="cName != null">
+        c_name,
+      </if>
+      <if test="cHotPhone != null">
+        c_hot_phone,
+      </if>
+      <if test="cPhone != null">
+        c_phone,
+      </if>
+      <if test="cAddress != null">
+        c_address,
+      </if>
+      <if test="cDis != null">
+        c_dis,
+      </if>
+      <if test="syscreated != null">
+        syscreated,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="demo != null">
+        demo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cId != null">
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="cName != null">
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cHotPhone != null">
+        #{cHotPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cPhone != null">
+        #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cAddress != null">
+        #{cAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cDis != null">
+        #{cDis,jdbcType=VARCHAR},
+      </if>
+      <if test="syscreated != null">
+        #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        #{demo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jz.xd.model.TbSysCompanyExample" resultType="java.lang.Integer">
+    select count(*) from tb_sys_company
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_sys_company
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.cId != null">
+        c_id = #{record.cId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cName != null">
+        c_name = #{record.cName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cHotPhone != null">
+        c_hot_phone = #{record.cHotPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cPhone != null">
+        c_phone = #{record.cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cAddress != null">
+        c_address = #{record.cAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cDis != null">
+        c_dis = #{record.cDis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syscreated != null">
+        syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.active != null">
+        active = #{record.active,jdbcType=INTEGER},
+      </if>
+      <if test="record.demo != null">
+        demo = #{record.demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_sys_company
+    set id = #{record.id,jdbcType=INTEGER},
+      c_id = #{record.cId,jdbcType=INTEGER},
+      c_name = #{record.cName,jdbcType=VARCHAR},
+      c_hot_phone = #{record.cHotPhone,jdbcType=VARCHAR},
+      c_phone = #{record.cPhone,jdbcType=VARCHAR},
+      c_address = #{record.cAddress,jdbcType=VARCHAR},
+      c_dis = #{record.cDis,jdbcType=VARCHAR},
+      syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      active = #{record.active,jdbcType=INTEGER},
+      demo = #{record.demo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jz.xd.model.TbSysCompany">
+    update tb_sys_company
+    <set>
+      <if test="cId != null">
+        c_id = #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="cName != null">
+        c_name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cHotPhone != null">
+        c_hot_phone = #{cHotPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cPhone != null">
+        c_phone = #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cAddress != null">
+        c_address = #{cAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cDis != null">
+        c_dis = #{cDis,jdbcType=VARCHAR},
+      </if>
+      <if test="syscreated != null">
+        syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        demo = #{demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jz.xd.model.TbSysCompany">
+    update tb_sys_company
+    set c_id = #{cId,jdbcType=INTEGER},
+      c_name = #{cName,jdbcType=VARCHAR},
+      c_hot_phone = #{cHotPhone,jdbcType=VARCHAR},
+      c_phone = #{cPhone,jdbcType=VARCHAR},
+      c_address = #{cAddress,jdbcType=VARCHAR},
+      c_dis = #{cDis,jdbcType=VARCHAR},
+      syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=INTEGER},
+      demo = #{demo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

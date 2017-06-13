@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.TbSysUBeanDiscountpageRuleLogMapper">
+  <resultMap id="BaseResultMap" type="com.jz.xd.model.TbSysUBeanDiscountpageRuleLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bdc_id" jdbcType="INTEGER" property="bdcId" />
+    <result column="bean_val_old" jdbcType="INTEGER" property="beanValOld" />
+    <result column="bean_val_new" jdbcType="INTEGER" property="beanValNew" />
+    <result column="discountpage_val_old" jdbcType="INTEGER" property="discountpageValOld" />
+    <result column="discountpage_val_new" jdbcType="INTEGER" property="discountpageValNew" />
+    <result column="money_old" jdbcType="INTEGER" property="moneyOld" />
+    <result column="money_new" jdbcType="INTEGER" property="moneyNew" />
+    <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+    <result column="demo" jdbcType="VARCHAR" property="demo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, bdc_id, bean_val_old, bean_val_new, discountpage_val_old, discountpage_val_new, 
+    money_old, money_new, syscreated, active, demo
+  </sql>
+  <select id="selectByExample" parameterType="com.jz.xd.model.TbSysUBeanDiscountpageRuleLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_sys_u_bean_discountpage_rule_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_sys_u_bean_discountpage_rule_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_sys_u_bean_discountpage_rule_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jz.xd.model.TbSysUBeanDiscountpageRuleLogExample">
+    delete from tb_sys_u_bean_discountpage_rule_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jz.xd.model.TbSysUBeanDiscountpageRuleLog">
+    insert into tb_sys_u_bean_discountpage_rule_log (id, bdc_id, bean_val_old, 
+      bean_val_new, discountpage_val_old, discountpage_val_new, 
+      money_old, money_new, syscreated, 
+      active, demo)
+    values (#{id,jdbcType=INTEGER}, #{bdcId,jdbcType=INTEGER}, #{beanValOld,jdbcType=INTEGER}, 
+      #{beanValNew,jdbcType=INTEGER}, #{discountpageValOld,jdbcType=INTEGER}, #{discountpageValNew,jdbcType=INTEGER}, 
+      #{moneyOld,jdbcType=INTEGER}, #{moneyNew,jdbcType=INTEGER}, #{syscreated,jdbcType=TIMESTAMP}, 
+      #{active,jdbcType=INTEGER}, #{demo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jz.xd.model.TbSysUBeanDiscountpageRuleLog">
+    insert into tb_sys_u_bean_discountpage_rule_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bdcId != null">
+        bdc_id,
+      </if>
+      <if test="beanValOld != null">
+        bean_val_old,
+      </if>
+      <if test="beanValNew != null">
+        bean_val_new,
+      </if>
+      <if test="discountpageValOld != null">
+        discountpage_val_old,
+      </if>
+      <if test="discountpageValNew != null">
+        discountpage_val_new,
+      </if>
+      <if test="moneyOld != null">
+        money_old,
+      </if>
+      <if test="moneyNew != null">
+        money_new,
+      </if>
+      <if test="syscreated != null">
+        syscreated,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="demo != null">
+        demo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bdcId != null">
+        #{bdcId,jdbcType=INTEGER},
+      </if>
+      <if test="beanValOld != null">
+        #{beanValOld,jdbcType=INTEGER},
+      </if>
+      <if test="beanValNew != null">
+        #{beanValNew,jdbcType=INTEGER},
+      </if>
+      <if test="discountpageValOld != null">
+        #{discountpageValOld,jdbcType=INTEGER},
+      </if>
+      <if test="discountpageValNew != null">
+        #{discountpageValNew,jdbcType=INTEGER},
+      </if>
+      <if test="moneyOld != null">
+        #{moneyOld,jdbcType=INTEGER},
+      </if>
+      <if test="moneyNew != null">
+        #{moneyNew,jdbcType=INTEGER},
+      </if>
+      <if test="syscreated != null">
+        #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        #{demo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jz.xd.model.TbSysUBeanDiscountpageRuleLogExample" resultType="java.lang.Integer">
+    select count(*) from tb_sys_u_bean_discountpage_rule_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_sys_u_bean_discountpage_rule_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bdcId != null">
+        bdc_id = #{record.bdcId,jdbcType=INTEGER},
+      </if>
+      <if test="record.beanValOld != null">
+        bean_val_old = #{record.beanValOld,jdbcType=INTEGER},
+      </if>
+      <if test="record.beanValNew != null">
+        bean_val_new = #{record.beanValNew,jdbcType=INTEGER},
+      </if>
+      <if test="record.discountpageValOld != null">
+        discountpage_val_old = #{record.discountpageValOld,jdbcType=INTEGER},
+      </if>
+      <if test="record.discountpageValNew != null">
+        discountpage_val_new = #{record.discountpageValNew,jdbcType=INTEGER},
+      </if>
+      <if test="record.moneyOld != null">
+        money_old = #{record.moneyOld,jdbcType=INTEGER},
+      </if>
+      <if test="record.moneyNew != null">
+        money_new = #{record.moneyNew,jdbcType=INTEGER},
+      </if>
+      <if test="record.syscreated != null">
+        syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.active != null">
+        active = #{record.active,jdbcType=INTEGER},
+      </if>
+      <if test="record.demo != null">
+        demo = #{record.demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_sys_u_bean_discountpage_rule_log
+    set id = #{record.id,jdbcType=INTEGER},
+      bdc_id = #{record.bdcId,jdbcType=INTEGER},
+      bean_val_old = #{record.beanValOld,jdbcType=INTEGER},
+      bean_val_new = #{record.beanValNew,jdbcType=INTEGER},
+      discountpage_val_old = #{record.discountpageValOld,jdbcType=INTEGER},
+      discountpage_val_new = #{record.discountpageValNew,jdbcType=INTEGER},
+      money_old = #{record.moneyOld,jdbcType=INTEGER},
+      money_new = #{record.moneyNew,jdbcType=INTEGER},
+      syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      active = #{record.active,jdbcType=INTEGER},
+      demo = #{record.demo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jz.xd.model.TbSysUBeanDiscountpageRuleLog">
+    update tb_sys_u_bean_discountpage_rule_log
+    <set>
+      <if test="bdcId != null">
+        bdc_id = #{bdcId,jdbcType=INTEGER},
+      </if>
+      <if test="beanValOld != null">
+        bean_val_old = #{beanValOld,jdbcType=INTEGER},
+      </if>
+      <if test="beanValNew != null">
+        bean_val_new = #{beanValNew,jdbcType=INTEGER},
+      </if>
+      <if test="discountpageValOld != null">
+        discountpage_val_old = #{discountpageValOld,jdbcType=INTEGER},
+      </if>
+      <if test="discountpageValNew != null">
+        discountpage_val_new = #{discountpageValNew,jdbcType=INTEGER},
+      </if>
+      <if test="moneyOld != null">
+        money_old = #{moneyOld,jdbcType=INTEGER},
+      </if>
+      <if test="moneyNew != null">
+        money_new = #{moneyNew,jdbcType=INTEGER},
+      </if>
+      <if test="syscreated != null">
+        syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        demo = #{demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jz.xd.model.TbSysUBeanDiscountpageRuleLog">
+    update tb_sys_u_bean_discountpage_rule_log
+    set bdc_id = #{bdcId,jdbcType=INTEGER},
+      bean_val_old = #{beanValOld,jdbcType=INTEGER},
+      bean_val_new = #{beanValNew,jdbcType=INTEGER},
+      discountpage_val_old = #{discountpageValOld,jdbcType=INTEGER},
+      discountpage_val_new = #{discountpageValNew,jdbcType=INTEGER},
+      money_old = #{moneyOld,jdbcType=INTEGER},
+      money_new = #{moneyNew,jdbcType=INTEGER},
+      syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=INTEGER},
+      demo = #{demo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,75 @@
+package com.jz.xd.model;
+
+import java.util.Date;
+
+public class TbRUGetanotherBackLog {
+    private Integer id;
+
+    private Integer uId;
+
+    private Integer flagGet;
+
+    private Date getTime;
+
+    private Date syscreated;
+
+    private Integer active;
+
+    private String demo;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getuId() {
+        return uId;
+    }
+
+    public void setuId(Integer uId) {
+        this.uId = uId;
+    }
+
+    public Integer getFlagGet() {
+        return flagGet;
+    }
+
+    public void setFlagGet(Integer flagGet) {
+        this.flagGet = flagGet;
+    }
+
+    public Date getGetTime() {
+        return getTime;
+    }
+
+    public void setGetTime(Date getTime) {
+        this.getTime = getTime;
+    }
+
+    public Date getSyscreated() {
+        return syscreated;
+    }
+
+    public void setSyscreated(Date syscreated) {
+        this.syscreated = syscreated;
+    }
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
+    public String getDemo() {
+        return demo;
+    }
+
+    public void setDemo(String demo) {
+        this.demo = demo == null ? null : demo.trim();
+    }
+}

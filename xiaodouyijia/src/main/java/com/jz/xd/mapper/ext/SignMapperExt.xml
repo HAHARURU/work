@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.ext.SignMapperExt">
+    <resultMap id="SignCustom" type="com.jz.xd.model.TbRULoginLog">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="u_id" jdbcType="INTEGER" property="uId"/>
+        <result column="flag_signed" jdbcType="INTEGER" property="flagSigned"/>
+        <result column="flag_sined_days" jdbcType="INTEGER" property="flagSinedDays"/>
+        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
+        <result column="today_date" jdbcType="DATE" property="todayDate"/>
+        <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated"/>
+        <result column="active" jdbcType="INTEGER" property="active"/>
+        <result column="demo" jdbcType="VARCHAR" property="demo"/>
+    </resultMap>
+    <select id="getSigns" resultMap="SignCustom">
+        SELECT *
+        FROM tb_r_u_login_log trull
+        WHERE trull.u_id=#{uid} AND trull.active=1 AND trull.today_date LIKE #{month};
+    </select>
+</mapper>

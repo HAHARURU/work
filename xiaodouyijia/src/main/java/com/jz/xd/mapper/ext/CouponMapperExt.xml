@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.ext.CouponMapperExt">
+    <resultMap id="CouponCustom" type="com.jz.xd.model.ext.CouponExt">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="u_id" jdbcType="INTEGER" property="uId" />
+        <result column="dp_id" jdbcType="INTEGER" property="dpId" />
+        <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated" />
+        <result column="active" jdbcType="INTEGER" property="active" />
+        <result column="demo" jdbcType="VARCHAR" property="demo" />
+        <result column="state" jdbcType="INTEGER" property="state" />
+        <result column="r_time" jdbcType="TIMESTAMP" property="rTime" />
+        <result column="discountpage_val" jdbcType="INTEGER" property="discountpageVal" />
+        <result column="duration_day" jdbcType="INTEGER" property="durationDay" />
+        <result column="money" jdbcType="INTEGER" property="money" />
+    </resultMap>
+    <select id="getCoupons" parameterType="java.lang.Integer" resultMap="CouponCustom">
+        select trudl.*,tsdt.discountpage_val,tsdt.duration_day,tsdt.money
+        from tb_r_u_discountpage_log trudl, tb_sys_discountpage_type tsdt
+        WHERE trudl.dp_id = tsdt.dp_id AND trudl.active = 1 AND tsdt.active = 1
+        <if test="uid != null">
+            AND trudl.u_id = #{uid}
+        </if>
+        <if test="state!=3">
+            AND trudl.state = #{state}
+        </if>
+        ORDER BY trudl.syscreated;
+    </select>
+</mapper>

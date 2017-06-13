@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.TbSysOgAddMapper">
+  <resultMap id="BaseResultMap" type="com.jz.xd.model.TbSysOgAdd">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="r_og_id" jdbcType="INTEGER" property="rOgId" />
+    <result column="r_og_name" jdbcType="VARCHAR" property="rOgName" />
+    <result column="p_id" jdbcType="INTEGER" property="pId" />
+    <result column="p_id_num" jdbcType="INTEGER" property="pIdNum" />
+    <result column="p_id_add" jdbcType="INTEGER" property="pIdAdd" />
+    <result column="p_id_add_num" jdbcType="INTEGER" property="pIdAddNum" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+    <result column="demo" jdbcType="VARCHAR" property="demo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, r_og_id, r_og_name, p_id, p_id_num, p_id_add, p_id_add_num, start_time, end_time, 
+    syscreated, active, demo
+  </sql>
+  <select id="selectByExample" parameterType="com.jz.xd.model.TbSysOgAddExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_sys_og_add
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_sys_og_add
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_sys_og_add
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jz.xd.model.TbSysOgAddExample">
+    delete from tb_sys_og_add
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jz.xd.model.TbSysOgAdd">
+    insert into tb_sys_og_add (id, r_og_id, r_og_name, 
+      p_id, p_id_num, p_id_add, 
+      p_id_add_num, start_time, end_time, 
+      syscreated, active, demo
+      )
+    values (#{id,jdbcType=INTEGER}, #{rOgId,jdbcType=INTEGER}, #{rOgName,jdbcType=VARCHAR}, 
+      #{pId,jdbcType=INTEGER}, #{pIdNum,jdbcType=INTEGER}, #{pIdAdd,jdbcType=INTEGER}, 
+      #{pIdAddNum,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{syscreated,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}, #{demo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jz.xd.model.TbSysOgAdd">
+    insert into tb_sys_og_add
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="rOgId != null">
+        r_og_id,
+      </if>
+      <if test="rOgName != null">
+        r_og_name,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="pIdNum != null">
+        p_id_num,
+      </if>
+      <if test="pIdAdd != null">
+        p_id_add,
+      </if>
+      <if test="pIdAddNum != null">
+        p_id_add_num,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="syscreated != null">
+        syscreated,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="demo != null">
+        demo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="rOgId != null">
+        #{rOgId,jdbcType=INTEGER},
+      </if>
+      <if test="rOgName != null">
+        #{rOgName,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pIdNum != null">
+        #{pIdNum,jdbcType=INTEGER},
+      </if>
+      <if test="pIdAdd != null">
+        #{pIdAdd,jdbcType=INTEGER},
+      </if>
+      <if test="pIdAddNum != null">
+        #{pIdAddNum,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="syscreated != null">
+        #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        #{demo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jz.xd.model.TbSysOgAddExample" resultType="java.lang.Integer">
+    select count(*) from tb_sys_og_add
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_sys_og_add
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.rOgId != null">
+        r_og_id = #{record.rOgId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rOgName != null">
+        r_og_name = #{record.rOgName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pId != null">
+        p_id = #{record.pId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pIdNum != null">
+        p_id_num = #{record.pIdNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.pIdAdd != null">
+        p_id_add = #{record.pIdAdd,jdbcType=INTEGER},
+      </if>
+      <if test="record.pIdAddNum != null">
+        p_id_add_num = #{record.pIdAddNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.syscreated != null">
+        syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.active != null">
+        active = #{record.active,jdbcType=INTEGER},
+      </if>
+      <if test="record.demo != null">
+        demo = #{record.demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_sys_og_add
+    set id = #{record.id,jdbcType=INTEGER},
+      r_og_id = #{record.rOgId,jdbcType=INTEGER},
+      r_og_name = #{record.rOgName,jdbcType=VARCHAR},
+      p_id = #{record.pId,jdbcType=INTEGER},
+      p_id_num = #{record.pIdNum,jdbcType=INTEGER},
+      p_id_add = #{record.pIdAdd,jdbcType=INTEGER},
+      p_id_add_num = #{record.pIdAddNum,jdbcType=INTEGER},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      active = #{record.active,jdbcType=INTEGER},
+      demo = #{record.demo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jz.xd.model.TbSysOgAdd">
+    update tb_sys_og_add
+    <set>
+      <if test="rOgId != null">
+        r_og_id = #{rOgId,jdbcType=INTEGER},
+      </if>
+      <if test="rOgName != null">
+        r_og_name = #{rOgName,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pIdNum != null">
+        p_id_num = #{pIdNum,jdbcType=INTEGER},
+      </if>
+      <if test="pIdAdd != null">
+        p_id_add = #{pIdAdd,jdbcType=INTEGER},
+      </if>
+      <if test="pIdAddNum != null">
+        p_id_add_num = #{pIdAddNum,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="syscreated != null">
+        syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        demo = #{demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jz.xd.model.TbSysOgAdd">
+    update tb_sys_og_add
+    set r_og_id = #{rOgId,jdbcType=INTEGER},
+      r_og_name = #{rOgName,jdbcType=VARCHAR},
+      p_id = #{pId,jdbcType=INTEGER},
+      p_id_num = #{pIdNum,jdbcType=INTEGER},
+      p_id_add = #{pIdAdd,jdbcType=INTEGER},
+      p_id_add_num = #{pIdAddNum,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=INTEGER},
+      demo = #{demo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.ext.ItemsMapperExt">
+    <resultMap id="ItemCustom" type="com.jz.xd.model.ext.ItemsExt">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="o_id" jdbcType="INTEGER" property="oId" />
+        <result column="p_id" jdbcType="INTEGER" property="pId" />
+        <result column="P_price" jdbcType="INTEGER" property="pPrice" />
+        <result column="larg_men_num" jdbcType="INTEGER" property="largMenNum" />
+        <result column="small_men_num" jdbcType="INTEGER" property="smallMenNum" />
+        <result column="num" jdbcType="INTEGER" property="num" />
+        <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated" />
+        <result column="active" jdbcType="INTEGER" property="active" />
+        <result column="demo" jdbcType="VARCHAR" property="demo" />
+        <result column="send_num" jdbcType="INTEGER" property="sendNum" />
+        <result column="c_price" jdbcType="INTEGER" property="cPrice" />
+        <result column="p_name" jdbcType="VARCHAR" property="pName" />
+        <result column="img" jdbcType="VARCHAR" property="img" />
+        <result column="p_num" jdbcType="INTEGER" property="pNum" />
+    </resultMap>
+    <select id="getOrderItems" parameterType="java.lang.Integer" resultMap="ItemCustom">
+        SELECT trog.*,trps.p_num
+        FROM tb_r_order_goods trog,tb_r_product_stock trps
+        WHERE trog.p_id=trps.p_id AND trog.active=1 AND trps.active=1 AND trog.o_id=#{oid};
+    </select>
+</mapper>

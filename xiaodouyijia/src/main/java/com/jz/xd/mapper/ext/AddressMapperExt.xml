@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.ext.AddressMapperExt">
+    <resultMap id="AddressCustom" type="com.jz.xd.model.ext.AddressExt">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="address_id" jdbcType="INTEGER" property="addressId"/>
+        <result column="uid" jdbcType="INTEGER" property="uid"/>
+        <result column="received_person" jdbcType="VARCHAR" property="receivedPerson"/>
+        <result column="received_person_phone" jdbcType="VARCHAR" property="receivedPersonPhone"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="area" jdbcType="VARCHAR" property="area"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated"/>
+        <result column="active" jdbcType="INTEGER" property="active"/>
+        <result column="demo" jdbcType="VARCHAR" property="demo"/>
+        <result column="default_address" jdbcType="BIT" property="defaultAddress"/>
+        <result column="pro_name" jdbcType="VARCHAR" property="proName"/>
+        <result column="city_name" jdbcType="VARCHAR" property="cityName"/>
+        <result column="area_name" jdbcType="VARCHAR" property="areaName"/>
+    </resultMap>
+    <select id="getAddressList" parameterType="java.lang.Integer" resultMap="AddressCustom">
+        select tsua.*,tsp.pro_name,tsc.city_name,tsca.area_name
+        from tb_sys_user_address tsua, tb_sys_province tsp, tb_sys_city tsc,tb_sys_city_area tsca
+        WHERE
+        <if test="uid!=null">
+            tsua.uid=#{uid} AND
+        </if>
+        tsua.active=1 AND tsp.active=1 AND tsp.active=1 AND tsca.active=1 AND tsua.province=tsp.pro_id AND
+        tsua.city=tsc.city_id AND tsua.area=tsca.area_id
+        ORDER BY tsua.default_address DESC;
+    </select>
+</mapper>

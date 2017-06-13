@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.OutvideoMapper">
+  <resultMap id="BaseResultMap" type="com.jz.xd.model.Outvideo">
+    <id column="ovid" jdbcType="INTEGER" property="ovid" />
+    <result column="vourl" jdbcType="VARCHAR" property="vourl" />
+    <result column="voname" jdbcType="VARCHAR" property="voname" />
+    <result column="voduration" jdbcType="INTEGER" property="voduration" />
+    <result column="vopaly" jdbcType="INTEGER" property="vopaly" />
+    <result column="uploadTime" jdbcType="TIMESTAMP" property="uploadtime" />
+    <result column="fKind" jdbcType="INTEGER" property="fkind" />
+    <result column="sKind" jdbcType="INTEGER" property="skind" />
+    <result column="vopic" jdbcType="VARCHAR" property="vopic" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ovid, vourl, voname, voduration, vopaly, uploadTime, fKind, sKind, vopic
+  </sql>
+  <select id="selectByExample" parameterType="com.jz.xd.model.OutvideoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from outvideo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from outvideo
+    where ovid = #{ovid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from outvideo
+    where ovid = #{ovid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jz.xd.model.OutvideoExample">
+    delete from outvideo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jz.xd.model.Outvideo">
+    insert into outvideo (ovid, vourl, voname, 
+      voduration, vopaly, uploadTime, 
+      fKind, sKind, vopic
+      )
+    values (#{ovid,jdbcType=INTEGER}, #{vourl,jdbcType=VARCHAR}, #{voname,jdbcType=VARCHAR}, 
+      #{voduration,jdbcType=INTEGER}, #{vopaly,jdbcType=INTEGER}, #{uploadtime,jdbcType=TIMESTAMP}, 
+      #{fkind,jdbcType=INTEGER}, #{skind,jdbcType=INTEGER}, #{vopic,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jz.xd.model.Outvideo">
+    insert into outvideo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ovid != null">
+        ovid,
+      </if>
+      <if test="vourl != null">
+        vourl,
+      </if>
+      <if test="voname != null">
+        voname,
+      </if>
+      <if test="voduration != null">
+        voduration,
+      </if>
+      <if test="vopaly != null">
+        vopaly,
+      </if>
+      <if test="uploadtime != null">
+        uploadTime,
+      </if>
+      <if test="fkind != null">
+        fKind,
+      </if>
+      <if test="skind != null">
+        sKind,
+      </if>
+      <if test="vopic != null">
+        vopic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ovid != null">
+        #{ovid,jdbcType=INTEGER},
+      </if>
+      <if test="vourl != null">
+        #{vourl,jdbcType=VARCHAR},
+      </if>
+      <if test="voname != null">
+        #{voname,jdbcType=VARCHAR},
+      </if>
+      <if test="voduration != null">
+        #{voduration,jdbcType=INTEGER},
+      </if>
+      <if test="vopaly != null">
+        #{vopaly,jdbcType=INTEGER},
+      </if>
+      <if test="uploadtime != null">
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fkind != null">
+        #{fkind,jdbcType=INTEGER},
+      </if>
+      <if test="skind != null">
+        #{skind,jdbcType=INTEGER},
+      </if>
+      <if test="vopic != null">
+        #{vopic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jz.xd.model.OutvideoExample" resultType="java.lang.Integer">
+    select count(*) from outvideo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update outvideo
+    <set>
+      <if test="record.ovid != null">
+        ovid = #{record.ovid,jdbcType=INTEGER},
+      </if>
+      <if test="record.vourl != null">
+        vourl = #{record.vourl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.voname != null">
+        voname = #{record.voname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.voduration != null">
+        voduration = #{record.voduration,jdbcType=INTEGER},
+      </if>
+      <if test="record.vopaly != null">
+        vopaly = #{record.vopaly,jdbcType=INTEGER},
+      </if>
+      <if test="record.uploadtime != null">
+        uploadTime = #{record.uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fkind != null">
+        fKind = #{record.fkind,jdbcType=INTEGER},
+      </if>
+      <if test="record.skind != null">
+        sKind = #{record.skind,jdbcType=INTEGER},
+      </if>
+      <if test="record.vopic != null">
+        vopic = #{record.vopic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update outvideo
+    set ovid = #{record.ovid,jdbcType=INTEGER},
+      vourl = #{record.vourl,jdbcType=VARCHAR},
+      voname = #{record.voname,jdbcType=VARCHAR},
+      voduration = #{record.voduration,jdbcType=INTEGER},
+      vopaly = #{record.vopaly,jdbcType=INTEGER},
+      uploadTime = #{record.uploadtime,jdbcType=TIMESTAMP},
+      fKind = #{record.fkind,jdbcType=INTEGER},
+      sKind = #{record.skind,jdbcType=INTEGER},
+      vopic = #{record.vopic,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jz.xd.model.Outvideo">
+    update outvideo
+    <set>
+      <if test="vourl != null">
+        vourl = #{vourl,jdbcType=VARCHAR},
+      </if>
+      <if test="voname != null">
+        voname = #{voname,jdbcType=VARCHAR},
+      </if>
+      <if test="voduration != null">
+        voduration = #{voduration,jdbcType=INTEGER},
+      </if>
+      <if test="vopaly != null">
+        vopaly = #{vopaly,jdbcType=INTEGER},
+      </if>
+      <if test="uploadtime != null">
+        uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fkind != null">
+        fKind = #{fkind,jdbcType=INTEGER},
+      </if>
+      <if test="skind != null">
+        sKind = #{skind,jdbcType=INTEGER},
+      </if>
+      <if test="vopic != null">
+        vopic = #{vopic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ovid = #{ovid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jz.xd.model.Outvideo">
+    update outvideo
+    set vourl = #{vourl,jdbcType=VARCHAR},
+      voname = #{voname,jdbcType=VARCHAR},
+      voduration = #{voduration,jdbcType=INTEGER},
+      vopaly = #{vopaly,jdbcType=INTEGER},
+      uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
+      fKind = #{fkind,jdbcType=INTEGER},
+      sKind = #{skind,jdbcType=INTEGER},
+      vopic = #{vopic,jdbcType=VARCHAR}
+    where ovid = #{ovid,jdbcType=INTEGER}
+  </update>
+</mapper>

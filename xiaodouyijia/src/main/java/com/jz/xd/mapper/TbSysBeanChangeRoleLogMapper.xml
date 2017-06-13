@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.TbSysBeanChangeRoleLogMapper">
+  <resultMap id="BaseResultMap" type="com.jz.xd.model.TbSysBeanChangeRoleLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bcr_id" jdbcType="INTEGER" property="bcrId" />
+    <result column="days" jdbcType="INTEGER" property="days" />
+    <result column="bean_val_old" jdbcType="INTEGER" property="beanValOld" />
+    <result column="bean_val_new" jdbcType="INTEGER" property="beanValNew" />
+    <result column="bean_val_another_old" jdbcType="INTEGER" property="beanValAnotherOld" />
+    <result column="bean_val_another_new" jdbcType="INTEGER" property="beanValAnotherNew" />
+    <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+    <result column="demo" jdbcType="VARCHAR" property="demo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, bcr_id, days, bean_val_old, bean_val_new, bean_val_another_old, bean_val_another_new, 
+    syscreated, active, demo
+  </sql>
+  <select id="selectByExample" parameterType="com.jz.xd.model.TbSysBeanChangeRoleLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_sys_bean_change_role_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_sys_bean_change_role_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_sys_bean_change_role_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jz.xd.model.TbSysBeanChangeRoleLogExample">
+    delete from tb_sys_bean_change_role_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jz.xd.model.TbSysBeanChangeRoleLog">
+    insert into tb_sys_bean_change_role_log (id, bcr_id, days, 
+      bean_val_old, bean_val_new, bean_val_another_old, 
+      bean_val_another_new, syscreated, active, 
+      demo)
+    values (#{id,jdbcType=INTEGER}, #{bcrId,jdbcType=INTEGER}, #{days,jdbcType=INTEGER}, 
+      #{beanValOld,jdbcType=INTEGER}, #{beanValNew,jdbcType=INTEGER}, #{beanValAnotherOld,jdbcType=INTEGER}, 
+      #{beanValAnotherNew,jdbcType=INTEGER}, #{syscreated,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}, 
+      #{demo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jz.xd.model.TbSysBeanChangeRoleLog">
+    insert into tb_sys_bean_change_role_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bcrId != null">
+        bcr_id,
+      </if>
+      <if test="days != null">
+        days,
+      </if>
+      <if test="beanValOld != null">
+        bean_val_old,
+      </if>
+      <if test="beanValNew != null">
+        bean_val_new,
+      </if>
+      <if test="beanValAnotherOld != null">
+        bean_val_another_old,
+      </if>
+      <if test="beanValAnotherNew != null">
+        bean_val_another_new,
+      </if>
+      <if test="syscreated != null">
+        syscreated,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="demo != null">
+        demo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bcrId != null">
+        #{bcrId,jdbcType=INTEGER},
+      </if>
+      <if test="days != null">
+        #{days,jdbcType=INTEGER},
+      </if>
+      <if test="beanValOld != null">
+        #{beanValOld,jdbcType=INTEGER},
+      </if>
+      <if test="beanValNew != null">
+        #{beanValNew,jdbcType=INTEGER},
+      </if>
+      <if test="beanValAnotherOld != null">
+        #{beanValAnotherOld,jdbcType=INTEGER},
+      </if>
+      <if test="beanValAnotherNew != null">
+        #{beanValAnotherNew,jdbcType=INTEGER},
+      </if>
+      <if test="syscreated != null">
+        #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        #{demo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jz.xd.model.TbSysBeanChangeRoleLogExample" resultType="java.lang.Integer">
+    select count(*) from tb_sys_bean_change_role_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_sys_bean_change_role_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bcrId != null">
+        bcr_id = #{record.bcrId,jdbcType=INTEGER},
+      </if>
+      <if test="record.days != null">
+        days = #{record.days,jdbcType=INTEGER},
+      </if>
+      <if test="record.beanValOld != null">
+        bean_val_old = #{record.beanValOld,jdbcType=INTEGER},
+      </if>
+      <if test="record.beanValNew != null">
+        bean_val_new = #{record.beanValNew,jdbcType=INTEGER},
+      </if>
+      <if test="record.beanValAnotherOld != null">
+        bean_val_another_old = #{record.beanValAnotherOld,jdbcType=INTEGER},
+      </if>
+      <if test="record.beanValAnotherNew != null">
+        bean_val_another_new = #{record.beanValAnotherNew,jdbcType=INTEGER},
+      </if>
+      <if test="record.syscreated != null">
+        syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.active != null">
+        active = #{record.active,jdbcType=INTEGER},
+      </if>
+      <if test="record.demo != null">
+        demo = #{record.demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_sys_bean_change_role_log
+    set id = #{record.id,jdbcType=INTEGER},
+      bcr_id = #{record.bcrId,jdbcType=INTEGER},
+      days = #{record.days,jdbcType=INTEGER},
+      bean_val_old = #{record.beanValOld,jdbcType=INTEGER},
+      bean_val_new = #{record.beanValNew,jdbcType=INTEGER},
+      bean_val_another_old = #{record.beanValAnotherOld,jdbcType=INTEGER},
+      bean_val_another_new = #{record.beanValAnotherNew,jdbcType=INTEGER},
+      syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      active = #{record.active,jdbcType=INTEGER},
+      demo = #{record.demo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jz.xd.model.TbSysBeanChangeRoleLog">
+    update tb_sys_bean_change_role_log
+    <set>
+      <if test="bcrId != null">
+        bcr_id = #{bcrId,jdbcType=INTEGER},
+      </if>
+      <if test="days != null">
+        days = #{days,jdbcType=INTEGER},
+      </if>
+      <if test="beanValOld != null">
+        bean_val_old = #{beanValOld,jdbcType=INTEGER},
+      </if>
+      <if test="beanValNew != null">
+        bean_val_new = #{beanValNew,jdbcType=INTEGER},
+      </if>
+      <if test="beanValAnotherOld != null">
+        bean_val_another_old = #{beanValAnotherOld,jdbcType=INTEGER},
+      </if>
+      <if test="beanValAnotherNew != null">
+        bean_val_another_new = #{beanValAnotherNew,jdbcType=INTEGER},
+      </if>
+      <if test="syscreated != null">
+        syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        demo = #{demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jz.xd.model.TbSysBeanChangeRoleLog">
+    update tb_sys_bean_change_role_log
+    set bcr_id = #{bcrId,jdbcType=INTEGER},
+      days = #{days,jdbcType=INTEGER},
+      bean_val_old = #{beanValOld,jdbcType=INTEGER},
+      bean_val_new = #{beanValNew,jdbcType=INTEGER},
+      bean_val_another_old = #{beanValAnotherOld,jdbcType=INTEGER},
+      bean_val_another_new = #{beanValAnotherNew,jdbcType=INTEGER},
+      syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=INTEGER},
+      demo = #{demo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

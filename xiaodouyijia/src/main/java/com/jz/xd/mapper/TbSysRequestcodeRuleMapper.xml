@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.TbSysRequestcodeRuleMapper">
+  <resultMap id="BaseResultMap" type="com.jz.xd.model.TbSysRequestcodeRule">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="rec_id" jdbcType="INTEGER" property="recId" />
+    <result column="make_num" jdbcType="INTEGER" property="makeNum" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="make_days" jdbcType="INTEGER" property="makeDays" />
+    <result column="bean_val" jdbcType="INTEGER" property="beanVal" />
+    <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+    <result column="demo" jdbcType="VARCHAR" property="demo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, rec_id, make_num, money, make_days, bean_val, syscreated, active, demo
+  </sql>
+  <select id="selectByExample" parameterType="com.jz.xd.model.TbSysRequestcodeRuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_sys_requestcode_rule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_sys_requestcode_rule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_sys_requestcode_rule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jz.xd.model.TbSysRequestcodeRuleExample">
+    delete from tb_sys_requestcode_rule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jz.xd.model.TbSysRequestcodeRule">
+    insert into tb_sys_requestcode_rule (id, rec_id, make_num, 
+      money, make_days, bean_val, 
+      syscreated, active, demo
+      )
+    values (#{id,jdbcType=INTEGER}, #{recId,jdbcType=INTEGER}, #{makeNum,jdbcType=INTEGER}, 
+      #{money,jdbcType=INTEGER}, #{makeDays,jdbcType=INTEGER}, #{beanVal,jdbcType=INTEGER}, 
+      #{syscreated,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}, #{demo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jz.xd.model.TbSysRequestcodeRule">
+    insert into tb_sys_requestcode_rule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="recId != null">
+        rec_id,
+      </if>
+      <if test="makeNum != null">
+        make_num,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="makeDays != null">
+        make_days,
+      </if>
+      <if test="beanVal != null">
+        bean_val,
+      </if>
+      <if test="syscreated != null">
+        syscreated,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="demo != null">
+        demo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recId != null">
+        #{recId,jdbcType=INTEGER},
+      </if>
+      <if test="makeNum != null">
+        #{makeNum,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=INTEGER},
+      </if>
+      <if test="makeDays != null">
+        #{makeDays,jdbcType=INTEGER},
+      </if>
+      <if test="beanVal != null">
+        #{beanVal,jdbcType=INTEGER},
+      </if>
+      <if test="syscreated != null">
+        #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        #{demo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jz.xd.model.TbSysRequestcodeRuleExample" resultType="java.lang.Integer">
+    select count(*) from tb_sys_requestcode_rule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_sys_requestcode_rule
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.recId != null">
+        rec_id = #{record.recId,jdbcType=INTEGER},
+      </if>
+      <if test="record.makeNum != null">
+        make_num = #{record.makeNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.money != null">
+        money = #{record.money,jdbcType=INTEGER},
+      </if>
+      <if test="record.makeDays != null">
+        make_days = #{record.makeDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.beanVal != null">
+        bean_val = #{record.beanVal,jdbcType=INTEGER},
+      </if>
+      <if test="record.syscreated != null">
+        syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.active != null">
+        active = #{record.active,jdbcType=INTEGER},
+      </if>
+      <if test="record.demo != null">
+        demo = #{record.demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_sys_requestcode_rule
+    set id = #{record.id,jdbcType=INTEGER},
+      rec_id = #{record.recId,jdbcType=INTEGER},
+      make_num = #{record.makeNum,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=INTEGER},
+      make_days = #{record.makeDays,jdbcType=INTEGER},
+      bean_val = #{record.beanVal,jdbcType=INTEGER},
+      syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      active = #{record.active,jdbcType=INTEGER},
+      demo = #{record.demo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jz.xd.model.TbSysRequestcodeRule">
+    update tb_sys_requestcode_rule
+    <set>
+      <if test="recId != null">
+        rec_id = #{recId,jdbcType=INTEGER},
+      </if>
+      <if test="makeNum != null">
+        make_num = #{makeNum,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=INTEGER},
+      </if>
+      <if test="makeDays != null">
+        make_days = #{makeDays,jdbcType=INTEGER},
+      </if>
+      <if test="beanVal != null">
+        bean_val = #{beanVal,jdbcType=INTEGER},
+      </if>
+      <if test="syscreated != null">
+        syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        demo = #{demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jz.xd.model.TbSysRequestcodeRule">
+    update tb_sys_requestcode_rule
+    set rec_id = #{recId,jdbcType=INTEGER},
+      make_num = #{makeNum,jdbcType=INTEGER},
+      money = #{money,jdbcType=INTEGER},
+      make_days = #{makeDays,jdbcType=INTEGER},
+      bean_val = #{beanVal,jdbcType=INTEGER},
+      syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=INTEGER},
+      demo = #{demo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

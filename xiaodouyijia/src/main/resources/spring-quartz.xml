@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-init-method="init" default-destroy-method="destroy"
+	   xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  ">
+
+	<!-- 线程执行器配置，用于任务注册 -->
+	<bean id="executor"
+		  class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="10"/>
+		<property name="maxPoolSize" value="100"/>
+		<property name="queueCapacity" value="500"/>
+	</bean>
+
+	<!-- 要调用的工作类 -->
+	<bean id="storedInfo" class="com.jz.xd.service.QuartzTasks"/>
+
+	<!-- 更新年龄 具体工作 -->
+	<bean id="storedInfoDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="storedInfo" />	<!-- 用到的service -->
+		</property>
+		<property name="targetMethod">
+			<value>updateAge</value>		<!-- 用到的方法 -->
+		</property>
+	</bean>
+
+	<!-- 更新年龄 job -->
+	<bean id="storedInfoTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">	<!-- id修改,在下面总管处注册 -->
+		<property name="jobDetail">
+			<ref bean="storedInfoDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0 0 1 1 ?</value>
+		</property>
+	</bean>
+
+	<!-- 总管理类 -->
+	<bean lazy-init="false"
+		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!--<ref bean="storedProceduresJobTrigger1" />-->
+				<ref bean="storedInfoTrigger" />
+			</list>
+		</property>
+		<property name="taskExecutor" ref="executor" />
+	</bean>
+
+</beans>

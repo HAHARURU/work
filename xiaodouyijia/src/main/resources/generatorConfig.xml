@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!-- 配置Run As Maven build : Goals 参数 : mybatis-generator:generate -Dmybatis.generator.overwrite=true -->
+<!-- 配置 tableName,使用 Run As Maven build 生成 dao model 层 -->
+<generatorConfiguration>
+
+    <!--数据库驱动包路径 这里是本地上的包-->
+    <classPathEntry location="D:\ziyuan\mysql-connector-java-5.1.42\mysql-connector-java-5.1.42\mysql-connector-java-5.1.42-bin.jar"/>
+    <!--<classPathEntry location="E:\apache-tomcat-7.0.65-windows-x64\apache-tomcat-7.0.65\webapps\ssh\WEB-INF\lib\mysql-connector-java-5.1.25-bin.jar"/>-->
+
+    <context id="DB2Tables" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；
+        一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖
+     -->
+        <property name="autoDelimitKeywords" value="false"/>
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+        <!--关闭注释 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库连接信息 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/db_small_bean?useUnicode=true"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <!--生成的model 包路径 -->
+        <javaModelGenerator targetPackage="com.jz.xd.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="ture"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成mapper.xml文件 路径 -->
+        <sqlMapGenerator targetPackage="com.jz.xd.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="ture"/>
+        </sqlMapGenerator>
+
+        <!-- 生成的Mapper接口 的包路径 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.jz.xd.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="ture"/>
+        </javaClientGenerator>
+
+        <!--对应数据库表名 -->
+        <table tableName="tb_r_order"></table>
+        <table tableName="tb_r_order_goods"></table>
+        <table tableName="tb_r_product_stock"></table>
+        <table tableName="tb_r_product_stock_data"></table>
+        <table tableName="tb_r_product_video"></table>
+        <table tableName="tb_r_requestcode_ntjr_log"></table>
+        <table tableName="tb_r_requestcode_tjr_log"></table>
+        <table tableName="tb_r_u_bean_discountpage_log"></table>
+        <table tableName="tb_r_u_discountpage_log"></table>
+        <table tableName="tb_r_u_getanother_back_log"></table>
+        <table tableName="tb_r_u_login_back_log"></table>
+        <table tableName="tb_r_u_login_log"></table>
+        <table tableName="tb_r_video"></table>
+        <table tableName="tb_sys_bean_change_role"></table>
+        <table tableName="tb_sys_bean_change_role_log"></table>
+        <table tableName="tb_sys_city"></table>
+        <table tableName="tb_sys_city_area"></table>
+        <table tableName="tb_sys_company"></table>
+        <table tableName="tb_sys_discountpage_type"></table>
+        <table tableName="tb_sys_og_add"></table>
+        <table tableName="tb_sys_ostatus"></table>
+        <table tableName="tb_sys_ot"></table>
+        <table tableName="tb_sys_payconfig"></table>
+        <table tableName="tb_sys_paytype"></table>
+        <table tableName="tb_sys_product"></table>
+        <table tableName="tb_sys_product_fun"></table>
+        <table tableName="tb_sys_province"></table>
+        <table tableName="tb_sys_ps_type"></table>
+        <table tableName="tb_sys_ptype"></table>
+        <table tableName="tb_sys_punit"></table>
+        <table tableName="tb_sys_requestcode_rule"></table>
+        <table tableName="b_sys_requestcode_rule_update_log"></table>
+        <table tableName="tb_sys_user_address"></table>
+        <table tableName="tb_sys_user_boy"></table>
+        <table tableName="tb_sys_user_participate"></table>
+        <table tableName="tb_sys_u_bean"></table>
+        <table tableName="tb_sys_u_bean_detail"></table>
+        <table tableName="tb_sys_u_bean_discountpage_rule"></table>
+        <table tableName="tb_sys_u_bean_discountpage_rule_log"></table>
+        <table tableName="tb_sys_u_discountpage"></table>
+        <table tableName="tb_sys_u_discountpage_rule"></table>
+        <table tableName="tb_sys_u_discountpage_rule_log"></table>
+        <table tableName="user"></table>
+        <table tableName="p_u"></table>
+        <table tableName="s_permission"></table>
+        <table tableName="outVideo"></table>
+        <table tableName="outKind"></table>
+        <table tableName="feedback"></table>
+
+    </context>
+</generatorConfiguration>

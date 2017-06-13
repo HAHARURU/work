@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.TbRVideoMapper">
+  <resultMap id="BaseResultMap" type="com.jz.xd.model.TbRVideo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="v_id" jdbcType="INTEGER" property="vId" />
+    <result column="v_name" jdbcType="VARCHAR" property="vName" />
+    <result column="v_tital" jdbcType="VARCHAR" property="vTital" />
+    <result column="v_year" jdbcType="INTEGER" property="vYear" />
+    <result column="v_month" jdbcType="INTEGER" property="vMonth" />
+    <result column="v_day" jdbcType="INTEGER" property="vDay" />
+    <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+    <result column="demo" jdbcType="VARCHAR" property="demo" />
+    <result column="v_img" jdbcType="VARCHAR" property="vImg" />
+    <result column="step_img" jdbcType="VARCHAR" property="stepImg" />
+    <result column="duration" jdbcType="INTEGER" property="duration" />
+    <result column="play_count" jdbcType="INTEGER" property="playCount" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jz.xd.model.TbRVideo">
+    <result column="v_procedure" jdbcType="LONGVARCHAR" property="vProcedure" />
+    <result column="v_made_pro" jdbcType="LONGVARCHAR" property="vMadePro" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, v_id, v_name, v_tital, v_year, v_month, v_day, syscreated, active, demo, v_img, 
+    step_img, duration, play_count
+  </sql>
+  <sql id="Blob_Column_List">
+    v_procedure, v_made_pro
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.jz.xd.model.TbRVideoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_r_video
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.jz.xd.model.TbRVideoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_r_video
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_r_video
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_r_video
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jz.xd.model.TbRVideoExample">
+    delete from tb_r_video
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jz.xd.model.TbRVideo">
+    insert into tb_r_video (id, v_id, v_name, 
+      v_tital, v_year, v_month, 
+      v_day, syscreated, active, 
+      demo, v_img, step_img, 
+      duration, play_count, v_procedure, 
+      v_made_pro)
+    values (#{id,jdbcType=INTEGER}, #{vId,jdbcType=INTEGER}, #{vName,jdbcType=VARCHAR}, 
+      #{vTital,jdbcType=VARCHAR}, #{vYear,jdbcType=INTEGER}, #{vMonth,jdbcType=INTEGER}, 
+      #{vDay,jdbcType=INTEGER}, #{syscreated,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}, 
+      #{demo,jdbcType=VARCHAR}, #{vImg,jdbcType=VARCHAR}, #{stepImg,jdbcType=VARCHAR}, 
+      #{duration,jdbcType=INTEGER}, #{playCount,jdbcType=INTEGER}, #{vProcedure,jdbcType=LONGVARCHAR}, 
+      #{vMadePro,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jz.xd.model.TbRVideo">
+    insert into tb_r_video
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="vId != null">
+        v_id,
+      </if>
+      <if test="vName != null">
+        v_name,
+      </if>
+      <if test="vTital != null">
+        v_tital,
+      </if>
+      <if test="vYear != null">
+        v_year,
+      </if>
+      <if test="vMonth != null">
+        v_month,
+      </if>
+      <if test="vDay != null">
+        v_day,
+      </if>
+      <if test="syscreated != null">
+        syscreated,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="demo != null">
+        demo,
+      </if>
+      <if test="vImg != null">
+        v_img,
+      </if>
+      <if test="stepImg != null">
+        step_img,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+      <if test="playCount != null">
+        play_count,
+      </if>
+      <if test="vProcedure != null">
+        v_procedure,
+      </if>
+      <if test="vMadePro != null">
+        v_made_pro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vId != null">
+        #{vId,jdbcType=INTEGER},
+      </if>
+      <if test="vName != null">
+        #{vName,jdbcType=VARCHAR},
+      </if>
+      <if test="vTital != null">
+        #{vTital,jdbcType=VARCHAR},
+      </if>
+      <if test="vYear != null">
+        #{vYear,jdbcType=INTEGER},
+      </if>
+      <if test="vMonth != null">
+        #{vMonth,jdbcType=INTEGER},
+      </if>
+      <if test="vDay != null">
+        #{vDay,jdbcType=INTEGER},
+      </if>
+      <if test="syscreated != null">
+        #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        #{demo,jdbcType=VARCHAR},
+      </if>
+      <if test="vImg != null">
+        #{vImg,jdbcType=VARCHAR},
+      </if>
+      <if test="stepImg != null">
+        #{stepImg,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="playCount != null">
+        #{playCount,jdbcType=INTEGER},
+      </if>
+      <if test="vProcedure != null">
+        #{vProcedure,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="vMadePro != null">
+        #{vMadePro,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jz.xd.model.TbRVideoExample" resultType="java.lang.Integer">
+    select count(*) from tb_r_video
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_r_video
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.vId != null">
+        v_id = #{record.vId,jdbcType=INTEGER},
+      </if>
+      <if test="record.vName != null">
+        v_name = #{record.vName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vTital != null">
+        v_tital = #{record.vTital,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vYear != null">
+        v_year = #{record.vYear,jdbcType=INTEGER},
+      </if>
+      <if test="record.vMonth != null">
+        v_month = #{record.vMonth,jdbcType=INTEGER},
+      </if>
+      <if test="record.vDay != null">
+        v_day = #{record.vDay,jdbcType=INTEGER},
+      </if>
+      <if test="record.syscreated != null">
+        syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.active != null">
+        active = #{record.active,jdbcType=INTEGER},
+      </if>
+      <if test="record.demo != null">
+        demo = #{record.demo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vImg != null">
+        v_img = #{record.vImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stepImg != null">
+        step_img = #{record.stepImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duration != null">
+        duration = #{record.duration,jdbcType=INTEGER},
+      </if>
+      <if test="record.playCount != null">
+        play_count = #{record.playCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.vProcedure != null">
+        v_procedure = #{record.vProcedure,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.vMadePro != null">
+        v_made_pro = #{record.vMadePro,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update tb_r_video
+    set id = #{record.id,jdbcType=INTEGER},
+    v_id = #{record.vId,jdbcType=INTEGER},
+    v_name = #{record.vName,jdbcType=VARCHAR},
+    v_tital = #{record.vTital,jdbcType=VARCHAR},
+    v_year = #{record.vYear,jdbcType=INTEGER},
+    v_month = #{record.vMonth,jdbcType=INTEGER},
+    v_day = #{record.vDay,jdbcType=INTEGER},
+    syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+    active = #{record.active,jdbcType=INTEGER},
+    demo = #{record.demo,jdbcType=VARCHAR},
+    v_img = #{record.vImg,jdbcType=VARCHAR},
+    step_img = #{record.stepImg,jdbcType=VARCHAR},
+    duration = #{record.duration,jdbcType=INTEGER},
+    play_count = #{record.playCount,jdbcType=INTEGER},
+    v_procedure = #{record.vProcedure,jdbcType=LONGVARCHAR},
+    v_made_pro = #{record.vMadePro,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_r_video
+    set id = #{record.id,jdbcType=INTEGER},
+    v_id = #{record.vId,jdbcType=INTEGER},
+    v_name = #{record.vName,jdbcType=VARCHAR},
+    v_tital = #{record.vTital,jdbcType=VARCHAR},
+    v_year = #{record.vYear,jdbcType=INTEGER},
+    v_month = #{record.vMonth,jdbcType=INTEGER},
+    v_day = #{record.vDay,jdbcType=INTEGER},
+    syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+    active = #{record.active,jdbcType=INTEGER},
+    demo = #{record.demo,jdbcType=VARCHAR},
+    v_img = #{record.vImg,jdbcType=VARCHAR},
+    step_img = #{record.stepImg,jdbcType=VARCHAR},
+    duration = #{record.duration,jdbcType=INTEGER},
+    play_count = #{record.playCount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jz.xd.model.TbRVideo">
+    update tb_r_video
+    <set>
+      <if test="vId != null">
+        v_id = #{vId,jdbcType=INTEGER},
+      </if>
+      <if test="vName != null">
+        v_name = #{vName,jdbcType=VARCHAR},
+      </if>
+      <if test="vTital != null">
+        v_tital = #{vTital,jdbcType=VARCHAR},
+      </if>
+      <if test="vYear != null">
+        v_year = #{vYear,jdbcType=INTEGER},
+      </if>
+      <if test="vMonth != null">
+        v_month = #{vMonth,jdbcType=INTEGER},
+      </if>
+      <if test="vDay != null">
+        v_day = #{vDay,jdbcType=INTEGER},
+      </if>
+      <if test="syscreated != null">
+        syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        demo = #{demo,jdbcType=VARCHAR},
+      </if>
+      <if test="vImg != null">
+        v_img = #{vImg,jdbcType=VARCHAR},
+      </if>
+      <if test="stepImg != null">
+        step_img = #{stepImg,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        duration = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="playCount != null">
+        play_count = #{playCount,jdbcType=INTEGER},
+      </if>
+      <if test="vProcedure != null">
+        v_procedure = #{vProcedure,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="vMadePro != null">
+        v_made_pro = #{vMadePro,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jz.xd.model.TbRVideo">
+    update tb_r_video
+    set v_id = #{vId,jdbcType=INTEGER},
+      v_name = #{vName,jdbcType=VARCHAR},
+      v_tital = #{vTital,jdbcType=VARCHAR},
+      v_year = #{vYear,jdbcType=INTEGER},
+      v_month = #{vMonth,jdbcType=INTEGER},
+      v_day = #{vDay,jdbcType=INTEGER},
+      syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=INTEGER},
+      demo = #{demo,jdbcType=VARCHAR},
+      v_img = #{vImg,jdbcType=VARCHAR},
+      step_img = #{stepImg,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=INTEGER},
+      play_count = #{playCount,jdbcType=INTEGER},
+      v_procedure = #{vProcedure,jdbcType=LONGVARCHAR},
+      v_made_pro = #{vMadePro,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jz.xd.model.TbRVideo">
+    update tb_r_video
+    set v_id = #{vId,jdbcType=INTEGER},
+      v_name = #{vName,jdbcType=VARCHAR},
+      v_tital = #{vTital,jdbcType=VARCHAR},
+      v_year = #{vYear,jdbcType=INTEGER},
+      v_month = #{vMonth,jdbcType=INTEGER},
+      v_day = #{vDay,jdbcType=INTEGER},
+      syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=INTEGER},
+      demo = #{demo,jdbcType=VARCHAR},
+      v_img = #{vImg,jdbcType=VARCHAR},
+      step_img = #{stepImg,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=INTEGER},
+      play_count = #{playCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.ext.ProductMapperExt">
+    <resultMap id="ProductCustom" type="com.jz.xd.model.TbSysProduct">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="p_id" jdbcType="INTEGER" property="pId"/>
+        <result column="p_type" jdbcType="INTEGER" property="pType"/>
+        <result column="p_name" jdbcType="VARCHAR" property="pName"/>
+        <result column="p_unit" jdbcType="INTEGER" property="pUnit"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="img_1" jdbcType="VARCHAR" property="img1"/>
+        <result column="img_2" jdbcType="VARCHAR" property="img2"/>
+        <result column="img_3" jdbcType="VARCHAR" property="img3"/>
+        <result column="p_age" jdbcType="VARCHAR" property="pAge"/>
+        <result column="p_month" jdbcType="VARCHAR" property="pMonth"/>
+        <result column="p_kind" jdbcType="VARCHAR" property="pKind"/>
+        <result column="p_sex" jdbcType="VARCHAR" property="pSex"/>
+        <result column="p_price" jdbcType="INTEGER" property="pPrice"/>
+        <result column="p_price_boy" jdbcType="INTEGER" property="pPriceBoy"/>
+        <result column="p_price_1" jdbcType="INTEGER" property="pPrice1"/>
+        <result column="p_price_2" jdbcType="INTEGER" property="pPrice2"/>
+        <result column="p_price_3" jdbcType="INTEGER" property="pPrice3"/>
+        <result column="best_new" jdbcType="INTEGER" property="bestNew"/>
+        <result column="best_hot" jdbcType="INTEGER" property="bestHot"/>
+        <result column="buy_notice" jdbcType="VARCHAR" property="buyNotice"/>
+        <result column="sort_index" jdbcType="INTEGER" property="sortIndex"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated"/>
+        <result column="active" jdbcType="INTEGER" property="active"/>
+        <result column="demo" jdbcType="VARCHAR" property="demo"/>
+        <result column="course_num" jdbcType="INTEGER" property="courseNum"/>
+        <association property="tbSysProductFun" javaType="com.jz.xd.model.TbSysProductFun">
+            <id column="id" jdbcType="INTEGER" property="id"/>
+            <result column="p_fun_str" jdbcType="VARCHAR" property="pFunStr"/>
+            <result column="p_pre" jdbcType="VARCHAR" property="pPre"/>
+            <result column="p_join" jdbcType="VARCHAR" property="pJoin"/>
+        </association>
+    </resultMap>
+    <select id="getProductJoinFun" parameterType="java.lang.Integer" resultMap="ProductCustom">
+        select tsp.*,tspf.p_fun_str,tspf.p_pre,tspf.p_join
+        from tb_sys_product tsp,tb_sys_product_fun tspf
+        WHERE tsp.p_id = tspf.p_id AND tsp.p_type = 3 AND tsp.best_new = #{state} AND tsp.active = 1 AND tspf.active = 1
+        ORDER BY tsp.syscreated
+        LIMIT #{number},#{size};
+    </select>
+
+    <resultMap id="ProductOrderCustom" type="com.jz.xd.model.ext.OrderItem">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="p_id" jdbcType="INTEGER" property="pId"/>
+        <result column="p_type" jdbcType="INTEGER" property="pType"/>
+        <result column="p_name" jdbcType="VARCHAR" property="pName"/>
+        <result column="p_unit" jdbcType="INTEGER" property="pUnit"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="img_1" jdbcType="VARCHAR" property="img1"/>
+        <result column="img_2" jdbcType="VARCHAR" property="img2"/>
+        <result column="img_3" jdbcType="VARCHAR" property="img3"/>
+        <result column="p_age" jdbcType="VARCHAR" property="pAge"/>
+        <result column="p_month" jdbcType="VARCHAR" property="pMonth"/>
+        <result column="p_kind" jdbcType="VARCHAR" property="pKind"/>
+        <result column="p_sex" jdbcType="VARCHAR" property="pSex"/>
+        <result column="p_price" jdbcType="INTEGER" property="pPrice"/>
+        <result column="p_price_boy" jdbcType="INTEGER" property="pPriceBoy"/>
+        <result column="p_price_1" jdbcType="INTEGER" property="pPrice1"/>
+        <result column="p_price_2" jdbcType="INTEGER" property="pPrice2"/>
+        <result column="p_price_3" jdbcType="INTEGER" property="pPrice3"/>
+        <result column="best_new" jdbcType="INTEGER" property="bestNew"/>
+        <result column="best_hot" jdbcType="INTEGER" property="bestHot"/>
+        <result column="buy_notice" jdbcType="VARCHAR" property="buyNotice"/>
+        <result column="sort_index" jdbcType="INTEGER" property="sortIndex"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated"/>
+        <result column="active" jdbcType="INTEGER" property="active"/>
+        <result column="demo" jdbcType="VARCHAR" property="demo"/>
+        <result column="course_num" jdbcType="INTEGER" property="courseNum"/>
+        <result column="o_id" jdbcType="INTEGER" property="oId"/>
+        <result column="num" jdbcType="INTEGER" property="num"/>
+        <result column="larg_men_num" jdbcType="INTEGER" property="largMenNum"/>
+        <result column="small_men_num" jdbcType="INTEGER" property="smallMenNum"/>
+        <result column="small_men_num" jdbcType="INTEGER" property="smallMenNum"/>
+    </resultMap>
+    <select id="getItems" parameterType="java.lang.Integer" resultMap="ProductOrderCustom">
+        select tsp.*,trog.o_id,trog.num,trog.larg_men_num,trog.small_men_num
+        from tb_r_order_goods trog,tb_sys_product tsp
+        WHERE tsp.p_id = trog.p_id AND trog.o_id = #{oid} AND tsp.active = 1 AND trog.active = 1
+        ORDER BY trog.syscreated;
+    </select>
+
+    <select id="getProductByPid" parameterType="java.lang.Integer" resultMap="ProductCustom">
+        select tsp.*,tspf.p_fun_str,tspf.p_pre,tspf.p_join
+        from tb_sys_product tsp,tb_sys_product_fun tspf
+        WHERE tsp.p_id = tspf.p_id AND tsp.p_id = #{pid} AND tsp.active = 1 AND tspf.active = 1;
+    </select>
+
+    <resultMap id="ProductCustomStock" type="com.jz.xd.model.ext.ProductStock">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="p_id" jdbcType="INTEGER" property="pId"/>
+        <result column="p_type" jdbcType="INTEGER" property="pType"/>
+        <result column="p_name" jdbcType="VARCHAR" property="pName"/>
+        <result column="p_unit" jdbcType="INTEGER" property="pUnit"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="img_1" jdbcType="VARCHAR" property="img1"/>
+        <result column="img_2" jdbcType="VARCHAR" property="img2"/>
+        <result column="img_3" jdbcType="VARCHAR" property="img3"/>
+        <result column="p_age" jdbcType="VARCHAR" property="pAge"/>
+        <result column="p_month" jdbcType="VARCHAR" property="pMonth"/>
+        <result column="p_kind" jdbcType="VARCHAR" property="pKind"/>
+        <result column="p_sex" jdbcType="VARCHAR" property="pSex"/>
+        <result column="p_price" jdbcType="INTEGER" property="pPrice"/>
+        <result column="p_price_boy" jdbcType="INTEGER" property="pPriceBoy"/>
+        <result column="p_price_1" jdbcType="INTEGER" property="pPrice1"/>
+        <result column="p_price_2" jdbcType="INTEGER" property="pPrice2"/>
+        <result column="p_price_3" jdbcType="INTEGER" property="pPrice3"/>
+        <result column="best_new" jdbcType="INTEGER" property="bestNew"/>
+        <result column="best_hot" jdbcType="INTEGER" property="bestHot"/>
+        <result column="buy_notice" jdbcType="VARCHAR" property="buyNotice"/>
+        <result column="sort_index" jdbcType="INTEGER" property="sortIndex"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated"/>
+        <result column="active" jdbcType="INTEGER" property="active"/>
+        <result column="demo" jdbcType="VARCHAR" property="demo"/>
+        <result column="course_num" jdbcType="INTEGER" property="courseNum"/>
+        <association property="tbRProductStock" javaType="com.jz.xd.model.TbRProductStock">
+            <id column="id" jdbcType="INTEGER" property="id"/>
+            <result column="p_id" jdbcType="INTEGER" property="pId"/>
+            <result column="p_num" jdbcType="INTEGER" property="pNum"/>
+        </association>
+    </resultMap>
+    <select id="getCourseWithStock" parameterType="java.lang.String" resultMap="ProductCustomStock">
+        select tsp.*,trps.id,trps.p_id,trps.p_num
+        from tb_sys_product tsp,tb_r_product_stock trps
+        WHERE tsp.p_id = trps.p_id AND tsp.active = 1 AND trps.active = 1 AND tsp.p_type = 2
+        <if test="kind != '-1'">
+            AND tsp.p_kind = #{kind}
+        </if>
+        <if test="kind == '-1'">
+            AND tsp.p_kind = '全部科目'
+        </if>
+        <if test="month == '-1'">
+            <if test="kind=='生命科学'">
+                AND tsp.p_month='1和7月份'
+            </if>
+            <if test="kind=='玩转数理'">
+                AND tsp.p_month='2和8月份'
+            </if>
+            <if test="kind=='趣味生活'">
+                AND tsp.p_month='3和9月份'
+            </if>
+            <if test="kind=='天文地理'">
+                AND tsp.p_month='4和10月份'
+            </if>
+            <if test="kind=='奇趣物化'">
+                AND tsp.p_month=='5和11月份'
+            </if>
+            <if test="kind=='美劳美艺'">
+                AND tsp.p_month='6和12月份'
+            </if>
+            <if test="(kind=='全部科目')||(kind=='-1')">
+                AND tsp.p_month='一年'
+            </if>
+        </if>
+        <if test="month != '-1'">
+            AND tsp.p_month = #{month}
+        </if>
+        <if test="age != '-1'">
+            AND tsp.p_age = #{age}
+        </if>
+        <if test="age == '-1'">
+            AND tsp.p_age != '全年龄'
+        </if>
+        ORDER BY tsp.syscreated;
+    </select>
+
+    <resultMap id="ProductCourseCustom" type="com.jz.xd.model.ext.CourseExt">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="p_id" jdbcType="INTEGER" property="pId"/>
+        <result column="p_type" jdbcType="INTEGER" property="pType"/>
+        <result column="p_name" jdbcType="VARCHAR" property="pName"/>
+        <result column="p_unit" jdbcType="INTEGER" property="pUnit"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="img_1" jdbcType="VARCHAR" property="img1"/>
+        <result column="img_2" jdbcType="VARCHAR" property="img2"/>
+        <result column="img_3" jdbcType="VARCHAR" property="img3"/>
+        <result column="p_age" jdbcType="VARCHAR" property="pAge"/>
+        <result column="p_month" jdbcType="VARCHAR" property="pMonth"/>
+        <result column="p_kind" jdbcType="VARCHAR" property="pKind"/>
+        <result column="p_sex" jdbcType="VARCHAR" property="pSex"/>
+        <result column="p_price" jdbcType="INTEGER" property="pPrice"/>
+        <result column="p_price_boy" jdbcType="INTEGER" property="pPriceBoy"/>
+        <result column="p_price_1" jdbcType="INTEGER" property="pPrice1"/>
+        <result column="p_price_2" jdbcType="INTEGER" property="pPrice2"/>
+        <result column="p_price_3" jdbcType="INTEGER" property="pPrice3"/>
+        <result column="best_new" jdbcType="INTEGER" property="bestNew"/>
+        <result column="best_hot" jdbcType="INTEGER" property="bestHot"/>
+        <result column="buy_notice" jdbcType="VARCHAR" property="buyNotice"/>
+        <result column="sort_index" jdbcType="INTEGER" property="sortIndex"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated"/>
+        <result column="active" jdbcType="INTEGER" property="active"/>
+        <result column="demo" jdbcType="VARCHAR" property="demo"/>
+        <result column="course_num" jdbcType="INTEGER" property="courseNum"/>
+        <result column="o_no" jdbcType="VARCHAR" property="oNo"/>
+        <result column="num" jdbcType="INTEGER" property="num"/>
+        <result column="send_num" jdbcType="INTEGER" property="sendNum" />
+        <result column="course_num" jdbcType="INTEGER" property="courseNum" />
+    </resultMap>
+    <select id="getMaterials" parameterType="java.lang.Integer" resultMap="ProductCourseCustom">
+        select tsp.*,trog.send_num,tro.o_no
+        from tb_r_order_goods trog,tb_sys_product tsp,tb_r_order tro
+        WHERE trog.p_id = tsp.p_id AND trog.o_id = #{oid} AND trog.o_id = tro.o_id AND tsp.p_type = 2 AND trog.active = 1 AND tsp.active = 1 AND tro.active = 1
+        ORDER BY tsp.syscreated DESC;
+    </select>
+</mapper>
+<!--
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.ext.ProductMapperExt">
+<resultMap id="ProductCustom" type="com.jz.xd.model.TbSysProduct">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="p_id" jdbcType="INTEGER" property="pId"/>
+    <result column="p_type" jdbcType="INTEGER" property="pType"/>
+    <result column="p_name" jdbcType="VARCHAR" property="pName"/>
+    <result column="p_unit" jdbcType="INTEGER" property="pUnit"/>
+    <result column="img" jdbcType="VARCHAR" property="img"/>
+    <result column="img_1" jdbcType="VARCHAR" property="img1"/>
+    <result column="img_2" jdbcType="VARCHAR" property="img2"/>
+    <result column="img_3" jdbcType="VARCHAR" property="img3"/>
+    <result column="p_age" jdbcType="VARCHAR" property="pAge"/>
+    <result column="p_month" jdbcType="VARCHAR" property="pMonth"/>
+    <result column="p_kind" jdbcType="VARCHAR" property="pKind"/>
+    <result column="p_sex" jdbcType="VARCHAR" property="pSex"/>
+    <result column="p_price" jdbcType="INTEGER" property="pPrice"/>
+    <result column="p_price_boy" jdbcType="INTEGER" property="pPriceBoy"/>
+    <result column="p_price_1" jdbcType="INTEGER" property="pPrice1"/>
+    <result column="p_price_2" jdbcType="INTEGER" property="pPrice2"/>
+    <result column="p_price_3" jdbcType="INTEGER" property="pPrice3"/>
+    <result column="best_new" jdbcType="INTEGER" property="bestNew"/>
+    <result column="best_hot" jdbcType="INTEGER" property="bestHot"/>
+    <result column="buy_notice" jdbcType="VARCHAR" property="buyNotice"/>
+    <result column="sort_index" jdbcType="INTEGER" property="sortIndex"/>
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+    <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated"/>
+    <result column="active" jdbcType="INTEGER" property="active"/>
+    <result column="demo" jdbcType="VARCHAR" property="demo"/>
+    <result column="course_num" jdbcType="INTEGER" property="courseNum"/>
+    <association property="tbSysProductFun" javaType="com.jz.xd.model.TbSysProductFun">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="p_fun_str" jdbcType="VARCHAR" property="pFunStr"/>
+        <result column="p_pre" jdbcType="VARCHAR" property="pPre"/>
+        <result column="p_join" jdbcType="VARCHAR" property="pJoin"/>
+    </association>
+</resultMap>
+<select id="getProductJoinFun" parameterType="java.lang.Integer" resultMap="ProductCustom">
+    select tsp.*,tspf.p_fun_str,tspf.p_pre,tspf.p_join
+    from tb_sys_product tsp,tb_sys_product_fun tspf
+    WHERE tsp.p_id = tspf.p_id AND tsp.p_type = 3 AND tsp.best_new = #{state} AND tsp.active = 1 AND tspf.active = 1
+    ORDER BY tsp.syscreated
+    LIMIT #{number},#{size};
+</select>
+
+<select id="getProductByPid" parameterType="java.lang.Integer" resultMap="ProductCustom">
+    select tsp.*,tspf.p_fun_str,tspf.p_pre,tspf.p_join
+    from tb_sys_product tsp,tb_sys_product_fun tspf
+    WHERE tsp.p_id = tspf.p_id AND tsp.p_id = #{pid} AND tsp.active = 1 AND tspf.active = 1;
+</select>
+
+<resultMap id="ProductCustomStock" type="com.jz.xd.model.ext.ProductStock">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="p_id" jdbcType="INTEGER" property="pId"/>
+    <result column="p_type" jdbcType="INTEGER" property="pType"/>
+    <result column="p_name" jdbcType="VARCHAR" property="pName"/>
+    <result column="p_unit" jdbcType="INTEGER" property="pUnit"/>
+    <result column="img" jdbcType="VARCHAR" property="img"/>
+    <result column="img_1" jdbcType="VARCHAR" property="img1"/>
+    <result column="img_2" jdbcType="VARCHAR" property="img2"/>
+    <result column="img_3" jdbcType="VARCHAR" property="img3"/>
+    <result column="p_age" jdbcType="VARCHAR" property="pAge"/>
+    <result column="p_month" jdbcType="VARCHAR" property="pMonth"/>
+    <result column="p_kind" jdbcType="VARCHAR" property="pKind"/>
+    <result column="p_sex" jdbcType="VARCHAR" property="pSex"/>
+    <result column="p_price" jdbcType="INTEGER" property="pPrice"/>
+    <result column="p_price_boy" jdbcType="INTEGER" property="pPriceBoy"/>
+    <result column="p_price_1" jdbcType="INTEGER" property="pPrice1"/>
+    <result column="p_price_2" jdbcType="INTEGER" property="pPrice2"/>
+    <result column="p_price_3" jdbcType="INTEGER" property="pPrice3"/>
+    <result column="best_new" jdbcType="INTEGER" property="bestNew"/>
+    <result column="best_hot" jdbcType="INTEGER" property="bestHot"/>
+    <result column="buy_notice" jdbcType="VARCHAR" property="buyNotice"/>
+    <result column="sort_index" jdbcType="INTEGER" property="sortIndex"/>
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+    <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated"/>
+    <result column="active" jdbcType="INTEGER" property="active"/>
+    <result column="demo" jdbcType="VARCHAR" property="demo"/>
+    <result column="course_num" jdbcType="INTEGER" property="courseNum"/>
+    <association property="tbRProductStock" javaType="com.jz.xd.model.TbRProductStock">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="p_id" jdbcType="INTEGER" property="pId"/>
+        <result column="p_num" jdbcType="INTEGER" property="pNum"/>
+    </association>
+</resultMap>
+<select id="getCourseWithStock" parameterType="java.lang.String" resultMap="ProductCustomStock">
+    select tsp.*,trps.id,trps.p_id,trps.p_num
+    from tb_sys_product tsp,tb_r_product_stock trps
+    WHERE tsp.p_id = trps.p_id AND tsp.active = 1 AND trps.active = 1 AND tsp.p_type = 2
+    <if test="kind != '全选'">
+        AND tsp.p_kind = #{kind}
+    </if>
+    <if test="month != '全选'">
+        <if test='month == "半年"'>
+            AND tsp.p_month IN ("1月份","2月份","3月份","4月份","5月份","6月份")
+        </if>
+        <if test='month == "一年"'/>
+        <if test='month != "半年" and month != "一年"'>
+            AND tsp.p_month = #{month}
+        </if>
+    </if>
+    <if test="age != '全选'">
+        AND tsp.p_age = #{age}
+    </if>
+    ORDER BY tsp.syscreated ASC ;
+</select>
+
+</mapper>-->

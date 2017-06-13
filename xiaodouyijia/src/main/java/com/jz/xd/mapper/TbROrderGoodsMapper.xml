@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.xd.mapper.TbROrderGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.jz.xd.model.TbROrderGoods">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="o_id" jdbcType="INTEGER" property="oId" />
+    <result column="p_id" jdbcType="INTEGER" property="pId" />
+    <result column="P_price" jdbcType="INTEGER" property="pPrice" />
+    <result column="larg_men_num" jdbcType="INTEGER" property="largMenNum" />
+    <result column="small_men_num" jdbcType="INTEGER" property="smallMenNum" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="syscreated" jdbcType="TIMESTAMP" property="syscreated" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+    <result column="demo" jdbcType="VARCHAR" property="demo" />
+    <result column="send_num" jdbcType="INTEGER" property="sendNum" />
+    <result column="c_price" jdbcType="INTEGER" property="cPrice" />
+    <result column="p_name" jdbcType="VARCHAR" property="pName" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, o_id, p_id, P_price, larg_men_num, small_men_num, num, syscreated, active, demo, 
+    send_num, c_price, p_name, img
+  </sql>
+  <select id="selectByExample" parameterType="com.jz.xd.model.TbROrderGoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_r_order_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_r_order_goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_r_order_goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jz.xd.model.TbROrderGoodsExample">
+    delete from tb_r_order_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jz.xd.model.TbROrderGoods">
+    insert into tb_r_order_goods (id, o_id, p_id, 
+      P_price, larg_men_num, small_men_num, 
+      num, syscreated, active, 
+      demo, send_num, c_price, 
+      p_name, img)
+    values (#{id,jdbcType=INTEGER}, #{oId,jdbcType=INTEGER}, #{pId,jdbcType=INTEGER}, 
+      #{pPrice,jdbcType=INTEGER}, #{largMenNum,jdbcType=INTEGER}, #{smallMenNum,jdbcType=INTEGER}, 
+      #{num,jdbcType=INTEGER}, #{syscreated,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}, 
+      #{demo,jdbcType=VARCHAR}, #{sendNum,jdbcType=INTEGER}, #{cPrice,jdbcType=INTEGER}, 
+      #{pName,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jz.xd.model.TbROrderGoods">
+    insert into tb_r_order_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="oId != null">
+        o_id,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="pPrice != null">
+        P_price,
+      </if>
+      <if test="largMenNum != null">
+        larg_men_num,
+      </if>
+      <if test="smallMenNum != null">
+        small_men_num,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="syscreated != null">
+        syscreated,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="demo != null">
+        demo,
+      </if>
+      <if test="sendNum != null">
+        send_num,
+      </if>
+      <if test="cPrice != null">
+        c_price,
+      </if>
+      <if test="pName != null">
+        p_name,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="oId != null">
+        #{oId,jdbcType=INTEGER},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pPrice != null">
+        #{pPrice,jdbcType=INTEGER},
+      </if>
+      <if test="largMenNum != null">
+        #{largMenNum,jdbcType=INTEGER},
+      </if>
+      <if test="smallMenNum != null">
+        #{smallMenNum,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="syscreated != null">
+        #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        #{demo,jdbcType=VARCHAR},
+      </if>
+      <if test="sendNum != null">
+        #{sendNum,jdbcType=INTEGER},
+      </if>
+      <if test="cPrice != null">
+        #{cPrice,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null">
+        #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jz.xd.model.TbROrderGoodsExample" resultType="java.lang.Integer">
+    select count(*) from tb_r_order_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_r_order_goods
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.oId != null">
+        o_id = #{record.oId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pId != null">
+        p_id = #{record.pId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pPrice != null">
+        P_price = #{record.pPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.largMenNum != null">
+        larg_men_num = #{record.largMenNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.smallMenNum != null">
+        small_men_num = #{record.smallMenNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.num != null">
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.syscreated != null">
+        syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.active != null">
+        active = #{record.active,jdbcType=INTEGER},
+      </if>
+      <if test="record.demo != null">
+        demo = #{record.demo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendNum != null">
+        send_num = #{record.sendNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.cPrice != null">
+        c_price = #{record.cPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.pName != null">
+        p_name = #{record.pName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.img != null">
+        img = #{record.img,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_r_order_goods
+    set id = #{record.id,jdbcType=INTEGER},
+      o_id = #{record.oId,jdbcType=INTEGER},
+      p_id = #{record.pId,jdbcType=INTEGER},
+      P_price = #{record.pPrice,jdbcType=INTEGER},
+      larg_men_num = #{record.largMenNum,jdbcType=INTEGER},
+      small_men_num = #{record.smallMenNum,jdbcType=INTEGER},
+      num = #{record.num,jdbcType=INTEGER},
+      syscreated = #{record.syscreated,jdbcType=TIMESTAMP},
+      active = #{record.active,jdbcType=INTEGER},
+      demo = #{record.demo,jdbcType=VARCHAR},
+      send_num = #{record.sendNum,jdbcType=INTEGER},
+      c_price = #{record.cPrice,jdbcType=INTEGER},
+      p_name = #{record.pName,jdbcType=VARCHAR},
+      img = #{record.img,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jz.xd.model.TbROrderGoods">
+    update tb_r_order_goods
+    <set>
+      <if test="oId != null">
+        o_id = #{oId,jdbcType=INTEGER},
+      </if>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pPrice != null">
+        P_price = #{pPrice,jdbcType=INTEGER},
+      </if>
+      <if test="largMenNum != null">
+        larg_men_num = #{largMenNum,jdbcType=INTEGER},
+      </if>
+      <if test="smallMenNum != null">
+        small_men_num = #{smallMenNum,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="syscreated != null">
+        syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="demo != null">
+        demo = #{demo,jdbcType=VARCHAR},
+      </if>
+      <if test="sendNum != null">
+        send_num = #{sendNum,jdbcType=INTEGER},
+      </if>
+      <if test="cPrice != null">
+        c_price = #{cPrice,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null">
+        p_name = #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jz.xd.model.TbROrderGoods">
+    update tb_r_order_goods
+    set o_id = #{oId,jdbcType=INTEGER},
+      p_id = #{pId,jdbcType=INTEGER},
+      P_price = #{pPrice,jdbcType=INTEGER},
+      larg_men_num = #{largMenNum,jdbcType=INTEGER},
+      small_men_num = #{smallMenNum,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      syscreated = #{syscreated,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=INTEGER},
+      demo = #{demo,jdbcType=VARCHAR},
+      send_num = #{sendNum,jdbcType=INTEGER},
+      c_price = #{cPrice,jdbcType=INTEGER},
+      p_name = #{pName,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
